@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-head">
+  <div class="back"><a href="{% url 'siswa_list' %}">←</a>
+    <div><div class="kicker">Kelola User</div><h1 class="title">Hapus User</h1></div>
+  </div>
+</div>
+<div class="card" style="max-width:560px">
+  <p>Anda akan menghapus: <strong>{{ s.nama }}</strong></p>
+  <p class="muted" style="font-size:13px">Data peminjaman terkait juga akan terhapus.</p>
+  <form method="post" style="display:flex;justify-content:flex-end;gap:10px;border-top:1px solid var(--line);padding-top:16px">{% csrf_token %}
+    <a href="{% url 'siswa_list' %}" class="btn btn-outline">Batal</a>
+    <button class="btn btn-danger">Hapus</button>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-head">
+  <div class="back"><a href="{% url 'buku_list' %}">←</a>
+    <div><div class="kicker">Kelola Buku</div><h1 class="title">Detail Buku</h1></div>
+  </div>
+</div>
+<div class="card">
+  <div class="detail-grid">
+    <div class="detail-box"><div class="detail-label">Judul</div><div class="detail-value">{{ b.judul }}</div></div>
+    <div class="detail-box"><div class="detail-label">Pengarang</div><div class="detail-value">{{ b.pengarang }}</div></div>
+    <div class="detail-box"><div class="detail-label">Kategori</div><div class="detail-value">{{ b.kategori }}</div></div>
+    <div class="detail-box"><div class="detail-label">Penerbit</div><div class="detail-value">{{ b.penerbit }}</div></div>
+    <div class="detail-box"><div class="detail-label">Tahun Terbit</div><div class="detail-value">{{ b.tahun_terbit }}</div></div>
+    <div class="detail-box"><div class="detail-label">ISBN</div><div class="detail-value">{{ b.isbn|default:'-' }}</div></div>
+    <div class="detail-box"><div class="detail-label">Rak / Lokasi</div><div class="detail-value">{{ b.rak }}</div></div>
+    <div class="detail-box"><div class="detail-label">Stok</div><div class="detail-value">{{ b.stok }}</div></div>
+    <div class="detail-box full"><div class="detail-label">Deskripsi</div><div>{{ b.deskripsi|default:'-' }}</div></div>
+  </div>
+</div>
+{% endblock %}

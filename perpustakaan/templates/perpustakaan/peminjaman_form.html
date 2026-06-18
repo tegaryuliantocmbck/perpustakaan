@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-head">
+  <div class="back"><a href="{% url 'peminjaman_list' %}">←</a>
+    <div><div class="kicker">Peminjaman Buku</div><h1 class="title">Pinjam Buku</h1></div>
+  </div>
+</div>
+<div class="card">
+  {% if errs %}<div class="errors"><ul>{% for e in errs %}<li>{{ e }}</li>{% endfor %}</ul></div>{% endif %}
+  <form method="post" class="form-grid">{% csrf_token %}
+    <div class="field"><label>Nama Peminjam</label>
+      <select name="siswa_id" required>
+        <option value="">-- Pilih Siswa --</option>
+        {% for s in siswa %}<option value="{{ s.id }}" {% if data.siswa_id|stringformat:'s' == s.id|stringformat:'s' %}selected{% endif %}>{{ s.nama }} - {{ s.kelas }} ({{ s.nis }})</option>{% endfor %}
+      </select>
+    </div>
+    <div class="field"><label>Pilih Buku</label>
+      <select name="buku_id" required>
+        <option value="">-- Pilih Buku --</option>
+        {% for b in buku %}<option value="{{ b.id }}" {% if data.buku_id|stringformat:'s' == b.id|stringformat:'s' %}selected{% endif %}>{{ b.judul }} ({{ b.stok }} stok)</option>{% endfor %}
+      </select>
+    </div>
+    <div class="field"><label>Tanggal Pinjam</label><input type="date" name="tanggal_pinjam" value="{{ data.tanggal_pinjam|default:'' }}" required></div>
+    <div class="field"><label>Tanggal Jatuh Tempo</label><input type="date" name="jatuh_tempo" value="{{ data.jatuh_tempo|default:'' }}" required></div>
+    <div class="field"><label>Keperluan</label><input name="keperluan" value="{{ data.keperluan|default:'' }}" placeholder="Bacaan pribadi"></div>
+    <div class="field"><label>Petugas</label><input name="petugas" value="{{ data.petugas|default:'Budi Siregar' }}"></div>
+    <div class="form-actions full">
+      <a href="{% url 'peminjaman_list' %}" class="btn btn-outline">Batal</a>
+      <button class="btn btn-primary">Pinjam Buku</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

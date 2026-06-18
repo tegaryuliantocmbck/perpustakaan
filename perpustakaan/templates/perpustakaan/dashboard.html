@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="grid-4">
+  <div class="card stat">
+    <div class="stat-head">Total Buku <span class="ico-pill bg-blue">📅</span></div>
+    <div class="stat-num">{{ total_buku }}</div>
+    <div class="stat-sub">Keseluruhan unit buku tersedia.</div>
+  </div>
+  <div class="card stat">
+    <div class="stat-head">Total Judul <span class="ico-pill bg-violet">📕</span></div>
+    <div class="stat-num">{{ total_judul }}</div>
+    <div class="stat-sub">Jumlah koleksi judul buku.</div>
+  </div>
+  <div class="card stat">
+    <div class="stat-head">Sedang Dipinjam <span class="ico-pill bg-amber">⏱</span></div>
+    <div class="stat-num">{{ sedang }}</div>
+    <div class="stat-sub">Transaksi peminjaman aktif.</div>
+  </div>
+  <div class="card stat">
+    <div class="stat-head">Sudah Dikembalikan <span class="ico-pill bg-green">✓</span></div>
+    <div class="stat-num">{{ selesai }}</div>
+    <div class="stat-sub">Transaksi yang sudah selesai.</div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="card">
+    <div class="section-label">Analisis Stok</div>
+    <div class="section-title">Distribusi Stok Buku</div>
+    {% for d in distribusi %}
+      <div class="bar-row"><span>{{ d.judul }}</span><strong>{{ d.stok }}</strong></div>
+      <div class="bar"><i style="width:{{ d.pct }}%"></i></div>
+    {% empty %}
+      <p class="muted">Belum ada data buku.</p>
+    {% endfor %}
+  </div>
+  <div class="card">
+    <div class="section-label">Status Peminjaman</div>
+    <div class="section-title">Ringkasan Transaksi</div>
+    <div class="bar-row"><span>Sedang Dipinjam</span><strong>{{ sedang }}</strong></div>
+    <div class="bar amber"><i style="width:{{ pct_sedang }}%"></i></div>
+    <div class="bar-row"><span>Sudah Dikembalikan</span><strong>{{ selesai }}</strong></div>
+    <div class="bar"><i style="width:{{ pct_selesai }}%;background:#16a34a"></i></div>
+  </div>
+</div>
+{% endblock %}

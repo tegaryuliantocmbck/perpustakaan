@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-head">
+  <div class="back"><a href="{% url 'siswa_list' %}">←</a>
+    <div><div class="kicker">Kelola User</div><h1 class="title">{% if mode == 'edit' %}Edit User{% else %}Tambah User{% endif %}</h1></div>
+  </div>
+</div>
+<div class="card">
+  {% if errs %}<div class="errors"><ul>{% for e in errs %}<li>{{ e }}</li>{% endfor %}</ul></div>{% endif %}
+  <form method="post" class="form-grid">{% csrf_token %}
+    <div class="field"><label>Nama</label><input name="nama" value="{{ data.nama|default:'' }}" required></div>
+    <div class="field"><label>Kelas</label><input name="kelas" value="{{ data.kelas|default:'' }}" required></div>
+    <div class="field"><label>NIS</label><input name="nis" value="{{ data.nis|default:'' }}" required></div>
+    <div class="field"><label>Status</label>
+      <select name="is_active">
+        <option value="true" {% if data.is_active %}selected{% endif %}>Aktif</option>
+        <option value="false" {% if data.is_active is False %}selected{% endif %}>Tidak Aktif</option>
+      </select>
+    </div>
+    <div class="form-actions full">
+      <a href="{% url 'siswa_list' %}" class="btn btn-outline">Batal</a>
+      <button class="btn btn-primary">{% if mode == 'edit' %}Perbarui User{% else %}Simpan User{% endif %}</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

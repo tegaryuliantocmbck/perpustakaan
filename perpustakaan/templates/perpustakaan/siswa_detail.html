@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-head">
+  <div class="back"><a href="{% url 'siswa_list' %}">←</a>
+    <div><div class="kicker">Kelola User</div><h1 class="title">Detail User</h1></div>
+  </div>
+</div>
+<div class="card">
+  <div class="detail-grid">
+    <div class="detail-box"><div class="detail-label">ID</div><div class="detail-value">{{ s.id }}</div></div>
+    <div class="detail-box"><div class="detail-label">Nama</div><div class="detail-value">{{ s.nama }}</div></div>
+    <div class="detail-box"><div class="detail-label">Kelas</div><div class="detail-value">{{ s.kelas }}</div></div>
+    <div class="detail-box"><div class="detail-label">NIS</div><div class="detail-value">{{ s.nis }}</div></div>
+    <div class="detail-box"><div class="detail-label">Status</div>
+      <div>{% if s.is_active %}<span class="badge aktif">Aktif</span>{% else %}<span class="badge nonaktif">Tidak Aktif</span>{% endif %}</div>
+    </div>
+    <div class="detail-box"><div class="detail-label">Total Peminjaman</div><div class="detail-value">{{ total }}</div></div>
+    <div class="detail-box full"><div class="detail-label">Peminjaman Aktif</div><div>{{ aktif }} buku masih dipinjam.</div></div>
+  </div>
+</div>
+{% endblock %}

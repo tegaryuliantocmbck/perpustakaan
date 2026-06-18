@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-head">
+  <div>
+    <div class="kicker">Data siswa yang bisa meminjam buku.</div>
+    <h1 class="title">User</h1>
+  </div>
+  <a href="{% url 'siswa_create' %}" class="btn btn-primary">+ Tambah User</a>
+</div>
+<div class="card">
+  <table class="table">
+    <thead><tr><th>ID</th><th>Nama</th><th>Kelas</th><th>NIS</th><th>Status</th><th></th></tr></thead>
+    <tbody>
+    {% for s in rows %}
+      <tr>
+        <td>{{ s.id }}</td><td>{{ s.nama }}</td><td>{{ s.kelas }}</td><td>{{ s.nis }}</td>
+        <td>{% if s.is_active %}<span class="badge aktif">Aktif</span>{% else %}<span class="badge nonaktif">Tidak Aktif</span>{% endif %}</td>
+        <td><div class="actions">
+          <a href="{% url 'siswa_detail' s.id %}" class="btn btn-ghost btn-sm">Detail</a>
+          <a href="{% url 'siswa_edit' s.id %}" class="btn btn-primary btn-sm">Edit</a>
+          <a href="{% url 'siswa_delete' s.id %}" class="btn btn-danger btn-sm">Hapus</a>
+        </div></td>
+      </tr>
+    {% empty %}<tr><td colspan="6" class="muted" style="text-align:center;padding:30px">Belum ada user.</td></tr>{% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

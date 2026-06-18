@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-head">
+  <div class="back"><a href="{% url 'buku_list' %}">←</a>
+    <div><div class="kicker">Kelola Buku</div><h1 class="title">{% if mode == 'edit' %}Edit Buku{% else %}Tambah Buku{% endif %}</h1></div>
+  </div>
+</div>
+<div class="card">
+  {% if errs %}<div class="errors"><ul>{% for e in errs %}<li>{{ e }}</li>{% endfor %}</ul></div>{% endif %}
+  <form method="post" class="form-grid">{% csrf_token %}
+    <div class="field"><label>Judul Buku</label><input name="judul" value="{{ data.judul|default:'' }}" required></div>
+    <div class="field"><label>Pengarang</label><input name="pengarang" value="{{ data.pengarang|default:'' }}" required></div>
+    <div class="field"><label>Kategori</label>
+      <select name="kategori" required>
+        <option value="">-- Pilih --</option>
+        {% for k in kategori %}<option value="{{ k }}" {% if data.kategori == k %}selected{% endif %}>{{ k }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="field"><label>Penerbit</label><input name="penerbit" value="{{ data.penerbit|default:'' }}" required></div>
+    <div class="field"><label>Tahun Terbit</label><input name="tahun_terbit" type="number" value="{{ data.tahun_terbit|default:'' }}" required></div>
+    <div class="field"><label>Stok</label><input name="stok" type="number" min="0" value="{{ data.stok|default:'' }}" required></div>
+    <div class="field"><label>ISBN</label><input name="isbn" value="{{ data.isbn|default:'' }}"></div>
+    <div class="field"><label>Rak / Lokasi</label>
+      <select name="rak" required>
+        <option value="">-- Pilih --</option>
+        {% for r in rak %}<option value="{{ r }}" {% if data.rak == r %}selected{% endif %}>{{ r }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="field full"><label>Deskripsi</label><textarea name="deskripsi">{{ data.deskripsi|default:'' }}</textarea></div>
+    <div class="form-actions full">
+      <a href="{% url 'buku_list' %}" class="btn btn-outline">Batal</a>
+      <button class="btn btn-primary">{% if mode == 'edit' %}Perbarui Buku{% else %}Simpan Buku{% endif %}</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

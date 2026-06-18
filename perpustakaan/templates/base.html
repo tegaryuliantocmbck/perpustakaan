@@ -1,0 +1,45 @@
+{% load static %}<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SIPUSTAKA — Sistem Peminjaman Buku</title>
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo">P</div>
+      <div>
+        <div class="brand-kicker">SIPUSTAKA</div>
+        <div class="brand-title">Sistem Peminjaman<br>Buku</div>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="{% url 'dashboard' %}" class="nav-item {% if page == 'dashboard' %}active{% endif %}">
+        <span class="ico">▦</span> Dashboard
+      </a>
+      <a href="{% url 'buku_list' %}" class="nav-item {% if page == 'buku' %}active{% endif %}">
+        <span class="ico">📖</span> Buku
+      </a>
+      <a href="{% url 'peminjaman_list' %}" class="nav-item {% if page == 'peminjaman' %}active{% endif %}">
+        <span class="ico">🗂</span> Peminjaman
+      </a>
+      <a href="{% url 'siswa_list' %}" class="nav-item {% if page == 'user' %}active{% endif %}">
+        <span class="ico">👥</span> User
+      </a>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="muted small">Admin Aktif</div>
+      <div class="strong">Budi Siregar</div>
+    </div>
+  </aside>
+  <main class="main">
+    {% block content %}{% endblock %}
+  </main>
+</div>
+</body>
+</html>

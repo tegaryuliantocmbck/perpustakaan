@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-head">
+  <div>
+    <div class="kicker">Catat peminjaman dan pengembalian buku.</div>
+    <h1 class="title">Peminjaman</h1>
+  </div>
+  <a href="{% url 'peminjaman_create' %}" class="btn btn-primary">＋ Pinjam Buku</a>
+</div>
+<div class="card">
+  <table class="table">
+    <thead><tr>
+      <th>ID</th><th>Nama Peminjam</th><th>Buku</th><th>Tanggal Pinjam</th>
+      <th>Jatuh Tempo</th><th>Keperluan</th><th>Petugas</th><th>Status</th><th></th>
+    </tr></thead>
+    <tbody>
+    {% for p in rows %}
+      <tr>
+        <td>{{ p.id }}</td>
+        <td>{{ p.siswa_nama }}</td>
+        <td>{{ p.buku_judul }}</td>
+        <td>{{ p.tanggal_pinjam|date:"d M Y" }}</td>
+        <td>{{ p.jatuh_tempo|date:"d M Y" }}</td>
+        <td>{{ p.keperluan|default:'-' }}</td>
+        <td>{{ p.petugas }}</td>
+        <td><span class="badge {{ p.status|lower }}">{{ p.status }}</span></td>
+        <td>
+          {% if p.status == 'Dipinjam' %}
+            <form method="post" action="{% url 'peminjaman_return' p.id %}" style="display:inline">{% csrf_token %}
+              <button class="btn btn-success btn-sm">Kembalikan</button>
+            </form>
+          {% else %}—{% endif %}
+        </td>
+      </tr>
+    {% empty %}<tr><td colspan="9" class="muted" style="text-align:center;padding:30px">Belum ada peminjaman.</td></tr>{% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
